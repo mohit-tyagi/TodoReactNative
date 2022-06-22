@@ -9,31 +9,63 @@
  */
 
 import React from 'react';
-import {StyleSheet, Text, View, SafeAreaView, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  FlatList,
+  Alert,
+} from 'react-native';
 import Task from './components/Task';
+import AddTask from './components/AddTask';
+import Header from './components/Header';
 
 const App = () => {
+  const [tasks, setTasks] = React.useState(['Sample todo task']);
+
+  const onAddTaskHandler = (task: string) => {
+    if (!task) {
+      Alert.alert('Please add todo details');
+    } else {
+      setTasks((prevState: string[]) => {
+        setTasks([task, ...prevState]);
+      });
+    }
+  };
+
+  const onDeleteTaskHandler = (task: string) => {
+    if (!task) {
+      Alert.alert('Unable to delete');
+    } else {
+      setTasks((prevState: string[]) => {
+        setTasks(prevState.filter(arrayItem => arrayItem !== task));
+      });
+      Alert.alert('Deleted!');
+    }
+  };
+
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.container}>
+          <Header />
           <View style={styles.taskWrapper}>
+            <AddTask onAddTask={onAddTaskHandler} />
             <Text style={styles.sectionTitle}> Today's Task</Text>
             <View style={styles.items}>
-              <Task text={'Task 1'} />
-              <Task text={'Task 2'} />
-              <Task text={'Task 3'} />
-              <Task text={'Task 4 '} />
-              <Task text={'Task 5'} />
-              <Task text={'Task 6'} />
-              <Task text={'Task 6'} />
-              <Task text={'Task 6'} />
-              <Task text={'Task 6'} />
-              <Task text={'Task 6'} />
-              <Task text={'Task 6'} />
-              <Task text={'Task 6'} />
-              <Task text={'Task 6'} />
-              <Task text={'Task 6'} />
+              <FlatList
+                data={tasks}
+                renderItem={item => {
+                  return (
+                    <Task
+                      text={item.item}
+                      onDeleteTaskHandler={onDeleteTaskHandler}
+                    />
+                  );
+                }}
+              />
             </View>
           </View>
         </View>
@@ -49,7 +81,7 @@ const styles = StyleSheet.create({
   },
   taskWrapper: {
     paddingHorizontal: 20,
-    paddingTop: 80,
+    paddingTop: 20,
   },
   sectionTitle: {
     fontSize: 24,

@@ -4,9 +4,10 @@ import CheckBox from '@react-native-community/checkbox';
 
 interface TaskProps {
   text: string;
+  onDeleteTaskHandler: any;
 }
 
-const Task = ({text}: TaskProps) => {
+const Task = ({text, onDeleteTaskHandler}: TaskProps) => {
   const [isSelected, setSelection] = useState(false);
 
   return (
@@ -23,7 +24,9 @@ const Task = ({text}: TaskProps) => {
           {text}
         </Text>
       </View>
-      <View style={styles.circular} />
+      <Text style={styles.delete} onPress={() => onDeleteTaskHandler(text)}>
+        X
+      </Text>
     </View>
   );
 };
@@ -46,12 +49,9 @@ const styles = StyleSheet.create({
   itemText: {
     width: '80%',
   },
-  circular: {
-    width: 12,
-    height: 12,
-    backgroundColor: '#55BCF6',
-    borderRadius: 5,
-    borderWidth: 2,
+  delete: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   checkBox: {
     marginRight: 15,
