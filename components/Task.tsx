@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 
-const Task = props => {
+interface TaskProps {
+  text: string;
+}
+
+const Task = ({text}: TaskProps) => {
   const [isSelected, setSelection] = useState(false);
 
   return (
@@ -16,7 +20,7 @@ const Task = props => {
           onValueChange={newValue => setSelection(newValue)}
         />
         <Text style={[styles.itemText, isSelected && styles.strikeText]}>
-          {props.text}
+          {text}
         </Text>
       </View>
       <View style={styles.circular} />
