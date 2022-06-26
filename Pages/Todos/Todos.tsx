@@ -22,7 +22,7 @@ import Task from './components/Task';
 import AddTask from './components/AddTask';
 import Header from './components/Header';
 
-const Todos = () => {
+const Todos = ({navigation}) => {
   const [tasks, setTasks] = React.useState(['Sample todo task']);
 
   const onAddTaskHandler = (task: string) => {
@@ -46,11 +46,15 @@ const Todos = () => {
     }
   };
 
+  const onTaskClickHandler = () => {
+    navigation.navigate('TaskDetails');
+  };
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <ScrollView>
         <View style={styles.container}>
-          <Header />
+          <Header navigation={navigation} />
           <View style={styles.taskWrapper}>
             <AddTask onAddTask={onAddTaskHandler} />
             <Text style={styles.sectionTitle}> Today's Task</Text>
@@ -62,6 +66,7 @@ const Todos = () => {
                     <Task
                       text={item.item}
                       onDeleteTaskHandler={onDeleteTaskHandler}
+                      onTaskClickHandler={onTaskClickHandler}
                     />
                   );
                 }}

@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 
 interface TaskProps {
   text: string;
   onDeleteTaskHandler: any;
+  onTaskClickHandler: any;
 }
 
-const Task = ({text, onDeleteTaskHandler}: TaskProps) => {
+const Task = ({text, onDeleteTaskHandler, onTaskClickHandler}: TaskProps) => {
   const [isSelected, setSelection] = useState(false);
 
   return (
@@ -20,9 +21,13 @@ const Task = ({text, onDeleteTaskHandler}: TaskProps) => {
           onFillColor={'#00FF00'}
           onValueChange={newValue => setSelection(newValue)}
         />
-        <Text style={[styles.itemText, isSelected && styles.strikeText]}>
-          {text}
-        </Text>
+        <TouchableOpacity
+          onPress={onTaskClickHandler}
+          style={styles.itemTextParent}>
+          <Text style={[styles.itemText, isSelected && styles.strikeText]}>
+            {text}
+          </Text>
+        </TouchableOpacity>
       </View>
       <Text style={styles.delete} onPress={() => onDeleteTaskHandler(text)}>
         X
@@ -46,8 +51,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexWrap: 'wrap',
   },
-  itemText: {
+  itemTextParent: {
     width: '80%',
+    height: '100%',
+  },
+  itemText: {
+    padding: 10,
   },
   delete: {
     fontSize: 20,
