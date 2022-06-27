@@ -4,7 +4,7 @@ import Header from '../Todos/components/Header';
 
 const About = ({navigation}) => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.container}>
       <ScrollView>
         <Header navigation={navigation} />
         <View>
@@ -15,6 +15,10 @@ const About = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default About;

@@ -8,7 +8,7 @@ const TaskDetails = ({navigation}) => {
       <ScrollView>
         <Header navigation={navigation} />
         <View>
-          <Text>This is Task details page</Text>
+          <Text>This is Task details page updated</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
